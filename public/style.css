@@ -1,0 +1,8 @@
+body {
+  background-image: url("bg.avif");
+  background-size: 256px;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: auto 62px;
+  font-family: Poppins, sans-serif;
+}

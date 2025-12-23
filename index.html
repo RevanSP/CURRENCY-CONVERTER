@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="public/style.css">
+    <link rel="icon" type="image/png"
+        href="https://images.vexels.com/media/users/3/135829/isolated/preview/1a857d341d8b6dd31426d6a62a8d9054-dollar-coin-currency-icon.png" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="min-h-screen flex items-center pt-8 justify-center px-4">
+    <div class="max-w-3xl mx-auto">
+        <div
+            class="text-center mb-4 py-6 bg-neutral-900 rounded-none border-2 border-black  shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]  ">
+            <div class="flex justify-center items-center gap-3 mb-1.5">
+                <i data-lucide="arrow-left-right" class="text-white"></i>
+                <h1 class="text-lg font-bold text-white">Currency Converter</h1>
+            </div>
+            <p class="text-xs text-white opacity-90 uppercase">Real-time exchange rates</p>
+        </div>
+        <div class="bg-neutral-800 rounded-none border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+            <div class="tabs tabs-lift">
+                <input type="radio" id="tab-main" name="tabs" class="tab tabs-sm !text-xs border-black"
+                    aria-label="Converter" checked />
+                <div class="tab-content bg-neutral-900 border-2 border-black text-xs 
+        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-none p-8">
+                    <div class="grid md:grid-cols-3 gap-4 items-center">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-sm font-semibold text-white">From</label>
+                            <select id="fromCurrency" class="w-full select select-sm text-xs border-2 border-black rounded-none bg-neutral-800 text-white
+    shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+    transition-all duration-200 ease-in-out
+    hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+    hover:translate-x-[2px] hover:translate-y-[2px]
+    active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                            </select>
+                            <input type="number" id="amount" min="0" step="0.01" placeholder="Enter amount" class="w-full input input-sm text-xs border-2 border-black rounded-none bg-neutral-800 text-white
+      shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+      transition-all duration-200 ease-in-out
+      hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+      hover:translate-x-[2px] hover:translate-y-[2px]
+      active:shadow-none active:translate-x-[3px] active:translate-y-[3px]" />
+                        </div>
+                        <div class="flex items-center justify-center md:order-none order-first">
+                            <button id="swapBtn"
+                                class="bg-neutral-800 hover:bg-neutral-950 text-white p-4 cursor-pointer rounded-full shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+        transition-all duration-200 ease-in-out
+        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+        hover:translate-x-[2px] hover:translate-y-[2px]
+        active:shadow-none active:translate-x-[3px] active:translate-y-[3px] border-2 border-black duration-300 transform hover:scale-110 hover:rotate-180">
+                                <i data-lucide="repeat" class="w-8 h-8"></i>
+                            </button>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="block text-sm font-semibold text-white mb-2">To</label>
+                            <select id="toCurrency" class="w-full select select-sm text-xs border-2 border-black rounded-none bg-neutral-800 text-white
+        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+        transition-all duration-200 ease-in-out
+        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+        hover:translate-x-[2px] hover:translate-y-[2px]
+        active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
+                                <option value="IDR">IDR - Indonesian Rupiah</option>
+                                <option value="USD">USD - US Dollar</option>
+                            </select>
+                            <div
+                                class="mt-2 bg-neutral-800 border-black border-2 rounded-none shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]  p-3 text-center">
+                                <div id="result" class="text-lg font-bold text-white">0.00</div>
+                                <div id="rate" class="text-xs text-gray-400 mt-1">Rate: -</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="convertBtn" disabled
+                        class="w-full btn btn-sm text-xs border-2 border-black rounded-none bg-neutral-800 text-white
+        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+        transition-all duration-200 ease-in-out
+        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+        hover:translate-x-[2px] hover:translate-y-[2px]
+        active:shadow-none active:translate-x-[3px] active:translate-y-[3px] rounded-none mt-4 disabled:opacity-50 disabled:cursor-not-allowed">Convert
+                        Now
+                    </button>
+                </div>
+                <input type="radio" id="tab-popular" name="tabs" class="tab tabs-sm !text-xs border-black"
+                    aria-label="Popular Rates" />
+                <div class="tab-content bg-neutral-900 border-2 border-black text-xs 
+        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-none p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="globe" class="text-white h-4 w-4"></i>
+                        <h3 class="text-md font-bold text-white">Popular Exchange Rates</h3>
+                    </div>
+                    <div id="popularRatesWrapper" class="space-y-2">
+                        <div id="popularRates" class="space-y-2"></div>
+                        <div class="join flex justify-center mt-4 ">
+                            <button id="prevPage" class="join-item btn btn-square text-xs btn-sm bg-neutral-800 text-white border-2 border-black rounded-none    shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+                        transition-all duration-200 ease-in-out
+                        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+                        hover:translate-x-[2px] hover:translate-y-[2px]
+                        active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">«</button>
+                            <button id="pageIndicator"
+                                class="join-item btn btn-sm bg-neutral-800 text-white border-2 border-black  shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">Page
+                                1</button>
+                            <button id="nextPage" class="join-item btn btn-sm btn-square text-xs bg-neutral-800 text-white border-2 border-black rounded-none    shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+                        transition-all duration-200 ease-in-out
+                        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+                        hover:translate-x-[2px] hover:translate-y-[2px]
+                        active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">»</button>
+                        </div>
+                    </div>
+                </div>
+                <input type="radio" id="tab-history" name="tabs" class="tab !text-xs tabs-sm border-black"
+                    aria-label="History" />
+                <div class="tab-content bg-neutral-900 border-2 border-black text-xs 
+        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-none ">
+                    <div class="flex justify-between items-center px-8 py-4 mt-2 mb-0.5">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="history" class="w-4 h-4 text-white"></i>
+                            <h3 class="text-md font-bold text-white">Conversion History</h3>
+                        </div>
+                        <button id="clearHistory" class="btn btn-sm text-xs bg-neutral-800 text-white border-2 border-black rounded-none
+    shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+    transition-all duration-200 ease-in-out
+    hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+    hover:translate-x-[2px] hover:translate-y-[2px]
+    active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline">Clear All</span>
+                        </button>
+                    </div>
+                    <div class="px-8">
+                        <select id="historySort" class="select select-sm w-full text-xs bg-neutral-800 text-white border-2 border-black rounded-none
+    shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+    transition-all duration-200 ease-in-out
+    hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+    hover:translate-x-[2px] hover:translate-y-[2px]
+    active:shadow-none active:translate-x-[3px] active:translate-y-[3px] mb-4">
+                            <option value="latest">LATEST - OLDEST</option>
+                            <option value="oldest">OLDEST - LATEST</option>
+                        </select>
+                    </div>
+                    <div id="history" class="space-y-2 px-4 mb-4">
+                        <p class="text-gray-400 text-center py-8 uppercase">No conversion history yet</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div id="popularRates" class="space-y-2"></div>
+                        <div id="historyPagination" class="join flex justify-center my-6 hidden">
+                            <button id="historyPrev" class="join-item btn btn-square text-xs btn-sm bg-neutral-800 text-white border-2 border-black rounded-none
+      shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+      transition-all duration-200 ease-in-out
+      hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+      hover:translate-x-[2px] hover:translate-y-[2px]
+      active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">«</button>
+
+                            <button id="historyPageIndicator" class="join-item btn btn-sm bg-neutral-800 text-white border-2 border-black 
+      shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">Page 1</button>
+
+                            <button id="historyNext" class="join-item btn btn-square text-xs btn-sm bg-neutral-800 text-white border-2 border-black rounded-none
+      shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+      transition-all duration-200 ease-in-out
+      hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+      hover:translate-x-[2px] hover:translate-y-[2px]
+      active:shadow-none active:translate-x-[3px] active:translate-y-[3px]">»</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="bg-neutral-900 rounded-none border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] mt-2 text-center text-xs py-2 border-t-2 -mb-8 border-black">
+            <div class="flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/m9nokuro" class="btn border-2 border-black text-xs !bg-neutral-800 !text-white
+                        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+                        transition-all duration-200 ease-in-out
+                        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+                        hover:translate-x-[2px] hover:translate-y-[2px]
+                        active:shadow-none active:translate-x-[3px] active:translate-y-[3px] btn-square">
+                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                </a>
+                <a href="https://github.com/RevanSP" class="btn border-2 border-black text-xs  !bg-neutral-800 !text-white
+                        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+                        transition-all duration-200 ease-in-out
+                        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+                        hover:translate-x-[2px] hover:translate-y-[2px]
+                        active:shadow-none active:translate-x-[3px] active:translate-y-[3px] btn-square">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+                <a href="https://web.facebook.com/profile.php?id=100082958149027&_rdc=1&_rdr" class="btn border-2 border-black text-xs !bg-neutral-800 !text-white
+                        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] 
+                        transition-all duration-200 ease-in-out 
+                        hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] 
+                        hover:translate-x-[2px] hover:translate-y-[2px]
+                        active:shadow-none active:translate-x-[3px] active:translate-y-[3px] btn-square">
+                    <i data-lucide="facebook" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <h3 class="text-center text-white mt-4 mb-4 font-bold">
+                Made By <i>It's Me Reiivan .</i>
+            </h3>
+        </div>
+        <dialog id="confirmClearModal" class="modal">
+            <div
+                class="modal-box bg-neutral-900 border-2 border-black text-white rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <h3 class="text-lg font-bold mb-2">Clear Conversion History</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Are you sure you want to clear all conversion history? This action cannot be undone.
+                </p>
+                <div class="modal-action flex justify-end gap-2">
+
+                    <button id="confirmClearBtn" class="btn btn-sm border-2 transition-all border-black bg-neutral-800 text-white rounded-none
+        shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]
+        hover:bg-red-700 hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i> Confirm
+                    </button>
+                </div>
+            </div>
+        </dialog>
+    </div>
+
+    <script src="public/script.js">
+    </script>
+</body>
+
+</html>
